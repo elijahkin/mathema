@@ -3,13 +3,19 @@ package mathema;
 public class Vector {
 	
 	// FIELDS
-	
 	private double x;
 	private double y;
 	private double z;
 	
 	// CONSTRUCTORS
+	// constructor for 2 dimensions
+	public Vector(double x, double y) {
+		this.x = x;
+		this.y = y;
+		this.z = 0.0;
+	}
 	
+	// constructor for 3 dimensions
 	public Vector(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
@@ -17,7 +23,6 @@ public class Vector {
 	}
 	
 	// METHODS
-	
 	// allows vectors to be printed as a string in angle bracket notation
 	public String toString() {
 		return String.format("<%f, %f, %f>", x, y, z);
@@ -38,6 +43,11 @@ public class Vector {
 		return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
 	}
 	
+	// returns the difference of two vectors
+	public Vector subtract(Vector v) {
+		return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
+	}
+	
 	// returns parallel vector multiplied by s
 	public Vector scalarMultiple(double s) {
 		return new Vector(s * this.x, s * this.y, s * this.z);
@@ -47,13 +57,19 @@ public class Vector {
 	public double dot(Vector v) {
 		return (this.x * v.x)+(this.y * v.y)+(this.z * v.z);
 	}
-
-	public static void main(String[] args) {
-		Vector v = new Vector(1, 2, 3);
-		Vector w = new Vector(2, 4, 6);
-		System.out.println(v.add(w));
-		System.out.println(v.dot(w));
-		System.out.println(v.magnitude());
-		System.out.println(v.unitVector());
+	
+	// returns whether two vectors are equal
+	public boolean equals(Vector v) {
+		return (this.x == v.x) && (this.y == v.y) && (this.z == v.z);
+	}
+	
+	// returns whether two vectors are parallel
+	public boolean parallel(Vector v) {
+		return this.unitVector().equals(v.unitVector());
+	}
+	
+	// returns whether two vectors are orthogonal
+	public boolean orthogonal(Vector v) {
+		return this.dot(v) == 0;
 	}
 }
