@@ -1,11 +1,10 @@
-package mathema;
-
 public class Vector {
 	
 	// FIELDS
 	private double x;
 	private double y;
 	private double z;
+	public static boolean useRadians = true;
 	
 	// CONSTRUCTORS
 	// constructor for 2 dimensions
@@ -65,11 +64,21 @@ public class Vector {
 	
 	// returns whether two vectors are parallel
 	public boolean parallel(Vector v) {
-		return this.unitVector().equals(v.unitVector());
+		return (this.unitVector().equals(v.unitVector())) || (this.unitVector().equals(v.scalarMultiple(-1).unitVector()));
 	}
 	
 	// returns whether two vectors are orthogonal
 	public boolean orthogonal(Vector v) {
 		return this.dot(v) == 0;
+	}
+	
+	// returns the angle between two vectors
+	public static double angleBetween(Vector v, Vector w) {
+		if (useRadians) {
+			return Math.acos((v.dot(w))/(v.magnitude() * w.magnitude()));
+		}
+		else {
+			return Math.acos((v.dot(w))/(v.magnitude() * w.magnitude())) * (180/Math.PI);
+		}
 	}
 }
